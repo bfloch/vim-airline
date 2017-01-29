@@ -660,6 +660,9 @@ with the middle mouse button to delete that buffer.
     * configure collapsing parent directories in buffer name. >
       let g:airline#extensions#tabline#fnamecollapse = 1
 <
+    * configure parent/file format. >
+      let g:airline#extensions#tabline#fnameparent = 1
+<
     * configure truncating non-active buffer names to specified length. >
       let g:airline#extensions#tabline#fnametruncate = 0
 

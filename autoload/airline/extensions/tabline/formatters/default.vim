@@ -4,13 +4,14 @@
 scriptencoding utf-8
 
 let s:fnamecollapse = get(g:, 'airline#extensions#tabline#fnamecollapse', 1)
+let s:fnameparent = get(g:, 'airline#extensions#tabline#fnameparent', 0)
 let s:fnametruncate = get(g:, 'airline#extensions#tabline#fnametruncate', 0)
 let s:buf_nr_format = get(g:, 'airline#extensions#tabline#buffer_nr_format', '%s: ')
 let s:buf_nr_show = get(g:, 'airline#extensions#tabline#buffer_nr_show', 0)
 let s:buf_modified_symbol = g:airline_symbols.modified
 
 function! airline#extensions#tabline#formatters#default#format(bufnr, buffers)
-  let fmod = get(g:, 'airline#extensions#tabline#fnamemod', ':~:.')
+  let fmod    = get(g:, 'airline#extensions#tabline#fnamemod',    ':~:.')
   let _ = ''
 
   let name = bufname(a:bufnr)
@@ -19,6 +20,10 @@ function! airline#extensions#tabline#formatters#default#format(bufnr, buffers)
   else
     if s:fnamecollapse
       let _ .= substitute(fnamemodify(name, fmod), '\v\w\zs.{-}\ze(\\|/)', '', 'g')
+    elseif s:fnameparent
+      let _ .= fnamemodify(name, ':p:h:t')
+      let _ .= '/'
+      let _ .= fnamemodify(name, ':t')
     else
       let _ .= fnamemodify(name, fmod)
     endif
